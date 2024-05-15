@@ -37,6 +37,6 @@ body {
 
 @layer base {
   html {
-    font-family: Fira Code, system-ui sans-serif;
+    font-family: "Fira Code", system-ui, sans-serif;
   }
 }

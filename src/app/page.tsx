@@ -1,3 +1,4 @@
+import Terminal from "@/terminal/terminal";
 import Image from "next/image";
 
 export default function Home() {
@@ -18,7 +19,7 @@ export default function Home() {
           </div>
         </div>
         <div className="flex flex-col bg-[#282a35] w-full h-full p-[8px] overflow-auto">
-
+          <Terminal />
         </div>
       </div>
     </div>

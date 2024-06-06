@@ -74,6 +74,8 @@ const Terminal = (): JSX.Element => {
                         <div className = "flex items-center px-[8px]">
                             <FontAwesomeIcon icon={faAngleRight} className="text-[#F7FCA0]" />
                             <input
+                                className="w-full font-[16px] bg-transparent text-white outline-none border-none"
+                                
                                 ref = {inputRef}
                                 value= {inputValue}
                                 onChange = {(e) => setInputValue(e.target.value)}

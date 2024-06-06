@@ -1,4 +1,6 @@
 import Terminal from "@/terminal/terminal";
+import { faGithub } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 
 export default function Home() {
@@ -13,8 +15,7 @@ export default function Home() {
           </div>
           <div className="flex-1 text-center">
             <a href="https://github.com/shivansh-bhatnagar18" target="_blank" className="text-[#EEEEEE]">
-              {/* <i className='fab fa-github'></i> */}
-              <h1 className="text-[#9c9c9c] text-[13px]">github.com/shivansh-bhatnagar18</h1>
+              <h1 className="text-[#9c9c9c] text-[13px]"><FontAwesomeIcon icon={faGithub}/>  github.com/shivansh-bhatnagar18</h1>
             </a>
           </div>
         </div>

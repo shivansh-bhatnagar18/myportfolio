@@ -2,6 +2,7 @@
 import React, {useEffect, useState, useRef} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAngleRight} from "@fortawesome/free-solid-svg-icons";
+import {faGithub, faLinkedin, faInstagram} from "@fortawesome/free-brands-svg-icons";
 
 interface Command {
     type: string;

@@ -129,11 +129,16 @@ const Terminal = (): JSX.Element => {
             await delay(500);
         } else if (value === "projects") {
             trueValue(value);
+            addText("Dive into My Code Wonderland on GitHub")
             addLink("https://github.com/shivansh-bhatnagar18", "github", "github.com/shivansh-bhatnagar18");
         } else if (value === "about me") {
             trueValue(value);
-            addText("Tu es el hihos de puta");
-            addText("I am a full stack developer who loves to work on projects that solve real-world problems. I am proficient in React, Node, and MongoDB.");
+            addText("Hello there! I am Shivansh Bhatnagar.");
+            addText("I am a Full Stack Developer with a passion for building scalable and efficient applications.");
+            addText("I'm a sophomore at IIT BHU, diving deep into the world of Mathematics and Computing. When I'm not crunching numbers, you'll find me sculpting the digital landscape as a full stack developer.")
+            addText("By day, I craft sleek, responsive interfaces and robust back-end architectures. By night, I morph into a systems developer, tweaking and optimizing to make sure everything runs smoother than a fresh install.")
+            addText("The open source world is my playground, where I contribute, collaborate, and sometimes just marvel at the sheer awesomeness of community-driven innovation. Whether it is debugging a tricky issue or exploring the latest tech trends, I am always on the lookout for the next big thing to learn and master.")  
+            addText("If code could speak, mine would probably say, Let's build something amazing! 🚀")
         } else if (value === "social -a") {
             trueValue(value);
             addLink("https://github.com/shivansh-bhatnagar18", "github", "github.com/shivansh-bhatnagar18");

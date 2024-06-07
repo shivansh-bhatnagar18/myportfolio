@@ -2,10 +2,11 @@ import Terminal from "@/terminal/terminal";
 import { faGithub } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
+import '../styles/globals.css';
 
 export default function Home() {
   return (
-    <div className="h-[100vh] flex items-center justify-center bg-[#393A59]">
+    <div className="h-[100vh] flex items-center justify-center bg-[#393A59] font-fc">
       <div className="flex flex-col max-w-[800px] w-full h-[500px] overflow-hidden rounded-[6px] border-[1px] border-gray-500 m-[20px] cursor-text">
         <div className="flex items-center text-center flex-row h-[24px] w-full bg-[#424040] cursor-default px-[8px]">
           <div className="flex flex-row absolute">

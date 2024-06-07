@@ -21,10 +21,15 @@ const Terminal = (): JSX.Element => {
             ...prev,
             {
                 type: 'text',
-                content: <p dangerouslySetInnerHTML={{__html: text}} />,
+                content: <p dangerouslySetInnerHTML={{__html: text}}/>,
             },
         ]);
     };
+
+    useEffect(() => {
+        openTerminal();
+    }, []); // Add setInputValue to the dependency array
+
 
     const addCode = (code: string, text: string): void => {
         setCommands((prev) => [
@@ -40,6 +45,10 @@ const Terminal = (): JSX.Element => {
             },
         ]);
     }
+
+    useEffect(() => {
+        openTerminal();
+    }, []);
 
     const openTerminal = async (): Promise<void> => {
         addText("Welcome to my terminal based portfolio where you can have a look at my journey and projects.");
@@ -63,24 +72,23 @@ const Terminal = (): JSX.Element => {
                 type: 'line',
                 content: (
                     <>
-                        <p className = "text-[#F7FCA0]">
-                            # user   
-                            <span className = "text-[#6A77D2]">
-                                in     
-                            </span>
-                            <span className="text-[#9CEAF3]">
-                                ~/shivansh-bhatnagar18
-                            </span>
+                        <p className="text-[#F7FCA0]">
+                            # user
+                            <span className="text-[#6A77D2]"> in </span>
+                            <span className="text-[#9CEAF3]">~/shivansh-bhatnagar18</span>
                         </p>
-                        <div className = "flex items-center px-[8px]">
+                        <div className="flex items-center px-[8px]">
                             <FontAwesomeIcon icon={faAngleRight} className="text-[#F7FCA0]" />
                             <input
-                                className="w-full font-[16px] bg-transparent text-white outline-none border-none"
-                                
-                                ref = {inputRef}
-                                value= {inputValue}
-                                onChange = {(e) => setInputValue(e.target.value)}
-                                onKeyPress={handleKeyPress}
+                                className="w-full font-[16px] bg-transparent text-white outline-none border-none pl-[8px]"
+                                type="text"
+                                ref={inputRef}
+                                value={inputValue}
+                                onChange={(e) => {
+                                    console.log(inputValue);
+                                    setInputValue(e.target.value);
+                                }}
+                                onKeyDown={handleKeyPress}
                             />
                         </div>
                     </>
@@ -105,6 +113,7 @@ const Terminal = (): JSX.Element => {
     };
 
     const getInputValue = async (): Promise<void> => {
+        console.log(inputValue);
         const value = inputValue.toLowerCase();
         setInputValue("");
         switch (value) {
@@ -171,10 +180,6 @@ const Terminal = (): JSX.Element => {
             },
         ]);
     };
-
-    useEffect(() => {
-        openTerminal();
-    }, []);
 
     return (
         <div>

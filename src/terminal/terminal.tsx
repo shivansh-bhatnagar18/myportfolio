@@ -14,7 +14,7 @@ const delay = (ms: number): Promise<void> => new Promise((res) => setTimeout(res
 const Terminal = (): JSX.Element => {
     const [commands, setCommands] = useState<Command[]>([]);
     const inputRef = useRef<HTMLInputElement>(null);
-    const [inputValue, setInputValue] = useState('');
+    const inputValueRef = useRef<string>('');
 
     const addText = (text: string): void => {
         setCommands((prev) => [
@@ -56,7 +56,7 @@ const Terminal = (): JSX.Element => {
         newLine();
     };
 
-    const newLine = (): void => {
+    const newLine = async (): Promise<void> => {
         setCommands((prev) => [
             ...prev,
             {
@@ -73,11 +73,9 @@ const Terminal = (): JSX.Element => {
                             <input
                                 className="w-full font-[16px] bg-transparent text-white outline-none border-none pl-[8px]"
                                 type="text"
-                                // ref={inputRef}
-                                value={inputValue}
+                                ref={inputRef}
                                 onChange={(e) => {
-                                    console.log(e.target.value);
-                                    setInputValue(e.target.value);
+                                    inputValueRef.current = e.target.value;
                                 }}
                                 onKeyDown={handleKeyPress}
                                 autoFocus
@@ -94,7 +92,7 @@ const Terminal = (): JSX.Element => {
         if (event.key === "Enter") {
             await delay(150);
             getInputValue();
-            removeInputValue();
+            // removeInputValue();
             await delay(150);
             newLine();
         }
@@ -105,44 +103,35 @@ const Terminal = (): JSX.Element => {
     };
 
     const getInputValue = async (): Promise<void> => {
-        console.log(inputValue);
-        const value = inputValue.toLowerCase();
-        setInputValue("");
-        switch (value) {
-            case "commands -a" :
-                trueValue(value);
-                addCode("projects", "My Github projects. Don't forget to star them!");
-                addCode("about me", "Get to know more about me.");
-                addCode("social -a", "List all my social media links.");
-                addCode("clear", "Clear the terminal.");
-                break;
-            case "projects":
-                trueValue(value);
-                addText('<a href="https://github.com/shivansh-bhatnagar18" target="_blank"><FontAwesomeIcon icon={faGithub} />github.com/shivansh-bhatnagar18</a>');  
-                break;
-            case "about me":
-                trueValue(value);
-                addText("Tu es el hihos de puta");
-                addText("I am a full stack developer who loves to work on projects that solve real-world problems. I am proficient in React, Node, and MongoDB.");
-                break;  
-            case "social -a":
-                trueValue(value);
-                addText('<a href="https://github.com/shivansh-bhatnagar18" target="_blank"><FontAwesomeIcon icon={faGithub} />github.com/shivansh-bhatnagar18</a>');
-                addText('<a href="https://www.linkedin.com/in/shivansh-bhatnagar-18" target="_blank"><FontAwesomeIcon icon={faLinkedin} />linkedin.com/in/shivansh-bhatnagar-18</a>');
-                addText('<a href="https://instagram.com" target="_blank"><FontAwesomeIcon icon={faInstagram} />instagram.com/shivansh_18</a>');
-                break;
-            case "social":
-                addText("Please specify -a to list all social media links.");
-                break;
-            case "commands":
-                addText("Please specify -a to list all available commands.");
-                break;
-            case "clear":
-                setCommands([]);
-                break;   
-            default:
-                addText(`Command not found: ${value}`);
-                falseValue(value);
+        const value = inputValueRef.current.toLowerCase();
+        if (value === "commands -a") {
+            trueValue(value);
+            addCode("projects", "My Github projects. Don't forget to star them!");
+            addCode("about me", "Get to know more about me.");
+            addCode("social -a", "List all my social media links.");
+            addCode("clear", "Clear the terminal.");
+            await delay(500);
+        } else if (value === "projects") {
+            trueValue(value);
+            addText('<a href="https://github.com/shivansh-bhatnagar18" target="_blank"><FontAwesomeIcon icon={faGithub} />github.com/shivansh-bhatnagar18</a>');
+        } else if (value === "about me") {
+            trueValue(value);
+            addText("Tu es el hihos de puta");
+            addText("I am a full stack developer who loves to work on projects that solve real-world problems. I am proficient in React, Node, and MongoDB.");
+        } else if (value === "social -a") {
+            trueValue(value);
+            addText('<a href="https://github.com/shivansh-bhatnagar18" target="_blank"><FontAwesomeIcon icon={faGithub} />github.com/shivansh-bhatnagar18</a>');
+            addText('<a href="https://www.linkedin.com/in/shivansh-bhatnagar-18" target="_blank"><FontAwesomeIcon icon={faLinkedin} />linkedin.com/in/shivansh-bhatnagar-18</a>');
+            addText('<a href="https://instagram.com" target="_blank"><FontAwesomeIcon icon={faInstagram} />instagram.com/shivansh_18</a>');
+        } else if (value === "social") {
+            addText("Please specify -a to list all social media links.");
+        } else if (value === "commands") {
+            addText("Please specify -a to list all available commands.");
+        } else if (value === "clear") {
+            setCommands([]);
+        } else {
+            addText(`Command not found: ${value}`);
+            falseValue(value);
         }
     };
 
@@ -155,7 +144,7 @@ const Terminal = (): JSX.Element => {
                 <section className="flex items-center px-[8px]">
                     <FontAwesomeIcon icon={faAngleRight} className="text-[#5AD786] pr-[8px]" />
                     <h2 className="text-[#5AD786]">{value}</h2>
-                    </section>
+                </section>
                 ),
             },
         ]);
@@ -168,7 +157,7 @@ const Terminal = (): JSX.Element => {
                 type: 'command',
                 content: (
                 <section className="flex items-center px-[8px]">
-                    <FontAwesomeIcon icon={faAngleRight} className="text-[#F78F85]" />
+                    <FontAwesomeIcon icon={faAngleRight} className="text-[#F78F85] pr-[8px]" />
                     <h2 className="text-[#F78F85]">{value}</h2>
                 </section>
                 ),

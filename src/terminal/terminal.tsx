@@ -14,7 +14,7 @@ const delay = (ms: number): Promise<void> => new Promise((res) => setTimeout(res
 const Terminal = (): JSX.Element => {
     const [commands, setCommands] = useState<Command[]>([]);
     const inputRef = useRef<HTMLInputElement>(null);
-    const [inputValue, setInputValue] = useState<string>("");
+    const [inputValue, setInputValue] = useState('');
 
     const addText = (text: string): void => {
         setCommands((prev) => [
@@ -25,11 +25,6 @@ const Terminal = (): JSX.Element => {
             },
         ]);
     };
-
-    useEffect(() => {
-        openTerminal();
-    }, []); // Add setInputValue to the dependency array
-
 
     const addCode = (code: string, text: string): void => {
         setCommands((prev) => [
@@ -46,10 +41,6 @@ const Terminal = (): JSX.Element => {
         ]);
     }
 
-    useEffect(() => {
-        openTerminal();
-    }, []);
-
     const openTerminal = async (): Promise<void> => {
         addText("Welcome to my terminal based portfolio where you can have a look at my journey and projects.");
         await delay(700);
@@ -58,7 +49,7 @@ const Terminal = (): JSX.Element => {
         addText("You can now run several commands to navigate through the portfolio.");
 
         addCode("about me", "Get to know more about me.");
-        addCode("all commands", "List all the available commands.");
+        addCode("commands -a", "List all the available commands.");
         addCode("social -a", "List all my social media links.");
 
         await delay(500);
@@ -82,13 +73,14 @@ const Terminal = (): JSX.Element => {
                             <input
                                 className="w-full font-[16px] bg-transparent text-white outline-none border-none pl-[8px]"
                                 type="text"
-                                ref={inputRef}
+                                // ref={inputRef}
                                 value={inputValue}
                                 onChange={(e) => {
-                                    console.log(inputValue);
+                                    console.log(e.target.value);
                                     setInputValue(e.target.value);
                                 }}
                                 onKeyDown={handleKeyPress}
+                                autoFocus
                             />
                         </div>
                     </>
@@ -117,7 +109,7 @@ const Terminal = (): JSX.Element => {
         const value = inputValue.toLowerCase();
         setInputValue("");
         switch (value) {
-            case "all" :
+            case "commands -a" :
                 trueValue(value);
                 addCode("projects", "My Github projects. Don't forget to star them!");
                 addCode("about me", "Get to know more about me.");
@@ -142,9 +134,12 @@ const Terminal = (): JSX.Element => {
             case "social":
                 addText("Please specify -a to list all social media links.");
                 break;
+            case "commands":
+                addText("Please specify -a to list all available commands.");
+                break;
             case "clear":
                 setCommands([]);
-                break;
+                break;   
             default:
                 addText(`Command not found: ${value}`);
                 falseValue(value);
@@ -180,6 +175,10 @@ const Terminal = (): JSX.Element => {
             },
         ]);
     };
+
+    useEffect(() => {
+        openTerminal();
+    }, []);
 
     return (
         <div>

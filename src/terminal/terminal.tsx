@@ -41,6 +41,22 @@ const Terminal = (): JSX.Element => {
         ]);
     }
 
+    const addLink = (link: string, icon: string, text: string): void => {
+        setCommands((prev) => [
+            ...prev,
+            {
+                type: 'link',
+                content: (
+                    <a href={link} target="_blank" className="text-[#ffffff]">
+                        {icon === 'github' ? <FontAwesomeIcon icon={faGithub}/> : icon === 'linkedin' ? <FontAwesomeIcon icon={faLinkedin}/> : <FontAwesomeIcon icon={faInstagram}/>}
+                        {' '}
+                        {text}
+                    </a>
+                ),
+            },
+        ]);
+    }
+
     const openTerminal = async (): Promise<void> => {
         addText("Welcome to my terminal based portfolio where you can have a look at my journey and projects.");
         await delay(700);
@@ -113,16 +129,16 @@ const Terminal = (): JSX.Element => {
             await delay(500);
         } else if (value === "projects") {
             trueValue(value);
-            addText('<a href="https://github.com/shivansh-bhatnagar18" target="_blank"><FontAwesomeIcon icon={faGithub} />github.com/shivansh-bhatnagar18</a>');
+            addLink("https://github.com/shivansh-bhatnagar18", "github", "github.com/shivansh-bhatnagar18");
         } else if (value === "about me") {
             trueValue(value);
             addText("Tu es el hihos de puta");
             addText("I am a full stack developer who loves to work on projects that solve real-world problems. I am proficient in React, Node, and MongoDB.");
         } else if (value === "social -a") {
             trueValue(value);
-            addText('<a href="https://github.com/shivansh-bhatnagar18" target="_blank"><FontAwesomeIcon icon={faGithub} />github.com/shivansh-bhatnagar18</a>');
-            addText('<a href="https://www.linkedin.com/in/shivansh-bhatnagar-18" target="_blank"><FontAwesomeIcon icon={faLinkedin} />linkedin.com/in/shivansh-bhatnagar-18</a>');
-            addText('<a href="https://instagram.com" target="_blank"><FontAwesomeIcon icon={faInstagram} />instagram.com/shivansh_18</a>');
+            addLink("https://github.com/shivansh-bhatnagar18", "github", "github.com/shivansh-bhatnagar18");
+            addLink("https://www.linkedin.com/in/shivansh-bhatnagar-2a02b2185/", "linkedin", "linkedin.com/in/shivansh-bhatnagar");
+            addLink("https://www.instagram.com/s_b_phantom/", "instagram", "instagram.com/s_b_phantom")
         } else if (value === "social") {
             addText("Please specify -a to list all social media links.");
         } else if (value === "commands") {
